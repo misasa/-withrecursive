@@ -63,6 +63,7 @@ module WithRecursive
         def with_recursive_query(sub_query, where_clause = nil)
           query = recursive_alias.project("*")
           query = query.where(where_clause) if where_clause
+          query = query.order(with_recursive_config.order) if with_recursive_config.order
           query.with(:recursive, Arel::Nodes::As.new(recursive_alias_definition, sub_query))
         end
 
