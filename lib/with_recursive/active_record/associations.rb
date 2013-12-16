@@ -23,15 +23,15 @@ module WithRecursive
         end
 
         def ancestors_by_id(id)
-          find_with_recursive(ancestors_for_recursive(id), recursive_alias[:id].not_eq(id))
+          find_with_recursive(ancestors_for_recursive(id), recursive_alias[:id].not_eq(id), :desc)
         end
 
         def descendants_by_id(id)
-          find_with_recursive(descendants_for_recursive(id), recursive_alias[:id].not_eq(id))
+          find_with_recursive(descendants_for_recursive(id), recursive_alias[:id].not_eq(id), :asc)
         end
 
         def root_by_id(id)
-          find_with_recursive(ancestors_for_recursive(id), recursive_alias[:parent_id].eq(nil)).first
+          find_with_recursive(ancestors_for_recursive(id), recursive_alias[:parent_id].eq(nil), :desc).first
         end
 
         private
@@ -60,15 +60,16 @@ module WithRecursive
           select(column_names.map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).build_arel.join(recursive_alias).on(on_clause)
         end
 
-        def with_recursive_query(sub_query, where_clause = nil)
+        def with_recursive_query(sub_query, where_clause, depth_order_direction)
           query = recursive_alias.project("*")
           query = query.where(where_clause) if where_clause
+          query = query.order("depth #{depth_order_direction}")
           query = query.order(with_recursive_config.order) if with_recursive_config.order
           query.with(:recursive, Arel::Nodes::As.new(recursive_alias_definition, sub_query))
         end
 
-        def find_with_recursive(query, where_clause = nil)
-          find_by_sql(with_recursive_query(query, where_clause))
+        def find_with_recursive(query, where_clause, depth_order_direction)
+          find_by_sql(with_recursive_query(query, where_clause, depth_order_direction))
         end
 
       end
