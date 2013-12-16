@@ -1,3 +1,10 @@
+
+require "simplecov"
+
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
 require "active_support"
 require "with_recursive"
 Dir.glob(File.expand_path("../support/**/*.rb", __FILE__)) { |f| require f }
