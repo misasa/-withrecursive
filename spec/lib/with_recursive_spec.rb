@@ -12,7 +12,7 @@ describe WithRecursive do
       let(:config) { Tree.with_recursive_config }
       it { expect(config.foreign_key).to eq :parent_id }
       it { expect(config.order).to be_nil }
-      it { expect(Tree.new).to be_a WithRecursive::ActiveRecord::Associations }
+      it { expect(Tree.new).to be_a WithRecursive::ActiveRecordExtension::Associations }
     end
     context "with args" do
       before { Tree.send(:with_recursive, foreign_key: key, order: ord) }
@@ -21,7 +21,7 @@ describe WithRecursive do
       let(:config) { Tree.with_recursive_config }
       it { expect(config.foreign_key).to eq key }
       it { expect(config.order).to eq ord }
-      it { expect(Tree.new).to be_a WithRecursive::ActiveRecord::Associations }
+      it { expect(Tree.new).to be_a WithRecursive::ActiveRecordExtension::Associations }
     end
   end
 

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe WithRecursive::ActiveRecord::Associations do
+describe WithRecursive::ActiveRecordExtension::Associations do
 
   before { Tree.send(:with_recursive, order: :code) }
   let(:tree) { Tree.create(parent_id: parent_id, code: code) }
@@ -13,7 +13,7 @@ describe WithRecursive::ActiveRecord::Associations do
       let(:parent_id) { parent.id }
       it { expect(tree.parent).to eq parent }
     end
-    
+
     describe ".children" do
       before { @child = Tree.create(parent_id: tree.id) }
       it { expect(tree.children).to eq [@child] }

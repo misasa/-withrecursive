@@ -1,5 +1,5 @@
 module WithRecursive
-  module ActiveRecord
+  module ActiveRecordExtension
     module Associations
 
       extend ActiveSupport::Concern
