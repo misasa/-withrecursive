@@ -94,6 +94,12 @@ module WithRecursive
         parent ? parent.children : self.class.roots
       end
 
+      def families
+        r = root
+        r.depth = 1
+        [r] + r.descendants
+      end
+
     end
   end
 end

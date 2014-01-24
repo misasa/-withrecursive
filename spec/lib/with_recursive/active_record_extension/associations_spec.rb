@@ -132,6 +132,18 @@ describe WithRecursive::ActiveRecordExtension::Associations do
       it { expect(siblings[1]).to eq @sibling2 }
       it { expect(siblings[2]).to eq tree }
     end
+
+    describe ".families" do
+      let(:families) { tree.families }
+      let(:parent) { Tree.create(parent_id: nil) }
+      let(:parent_id) { parent.id }
+      before { @child = Tree.create(parent_id: tree.id) }
+      it { expect(families.length).to eq 3 }
+      it { expect(families[0]).to eq parent }
+      it { expect(families[0].depth).to eq 1 }
+      it { expect(families[1]).to eq tree }
+      it { expect(families[2]).to eq @child }
+    end
   end
 
 end
