@@ -33,11 +33,13 @@ If result records should be ordered, use :order option.
 Additional methods
 
     parent: get parent record.
-    children: get children association.
+    children: get children records.
     ancestors: get ancestors records.
     descendants: get descendants records.
     root: get root record.
-    siblings: get same depth records association.
+    siblings: get same depth records.
+    self_and_siblings: get self and same depth records.
+    families: get self and ancestors and descendants records.
 
 ## Contributing
 
