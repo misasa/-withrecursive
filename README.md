@@ -2,7 +2,7 @@
 
 This rubygem adds recursive association for ActiveRecord model.
 
-## Installation
+# Installation
 
 Add this line to your application's Gemfile:
 
@@ -16,7 +16,7 @@ Or install it yourself as:
 
     $ gem install with_recursive
 
-## Usage
+# Usage
 
 Add this line to your model
 
@@ -41,7 +41,7 @@ Additional methods
     self_and_siblings: get self and same depth records.
     families: get self and ancestors and descendants records.
 
-## Contributing
+# Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
