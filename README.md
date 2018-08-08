@@ -2,6 +2,10 @@
 
 This rubygem adds recursive association for ActiveRecord model.
 
+# Description
+
+This rubygem adds recursive association for ActiveRecord model.
+
 # Installation
 
 Add this line to your application's Gemfile:
