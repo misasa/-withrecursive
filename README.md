@@ -6,6 +6,10 @@ An ActiveRecord extension to add recursive association.
 
 This extension adds recursive association for ActiveRecord model.
 
+This is referred by [medusa](https://github.com/misasa/medusa "follow instruction").
+
+[medusa]: https://github.com/misasa/medusa/        "Medusa"
+
 # Installation
 
 Add this line to your application's Gemfile:
