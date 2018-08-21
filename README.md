@@ -1,10 +1,10 @@
 # WithRecursive
 
-This rubygem adds recursive association for ActiveRecord model.
+An ActiveRecord extension to add recursive association.
 
 # Description
 
-This rubygem adds recursive association for ActiveRecord model.
+This extension adds recursive association for ActiveRecord model.
 
 # Installation
 
