@@ -4,7 +4,8 @@ An ActiveRecord extension to add recursive association.
 
 # Description
 
-This extension adds recursive association for ActiveRecord model.
+This extension makes it easy to create hierarchical queries, recursively traverse trees.
+If a table contains hierarchical data, then you can select rows in hierarchical order.
 
 This is referred by [medusa](https://github.com/misasa/medusa "follow instruction").
 
