@@ -1,14 +1,16 @@
-# WithRecursive
+# gem package -- WithRecursive
 
 An ActiveRecord extension to add recursive association.
 
 # Description
 
-This extension makes it easy to create hierarchical queries for self-referential models and allows to traverse ancestors or descendants recursively. 
+This extension helps to create hierarchical queries for
+self-referential models and allows to traverse ancestors or
+descendants, recursively.
 
-This is referred by [medusa](https://github.com/misasa/medusa "follow instruction").
-
-[medusa]: https://github.com/misasa/medusa/        "Medusa"
+See
+[medusa](https://github.com/misasa/medusa "follow instruction").
+that refers to this package.
 
 # Installation
 
