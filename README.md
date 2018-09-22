@@ -9,7 +9,7 @@ self-referential models and allows to traverse ancestors or
 descendants, recursively.
 
 See
-[medusa](https://github.com/misasa/medusa "follow instruction").
+[medusa](https://github.com/misasa/medusa "follow instruction")
 that refers to this package.
 
 # Installation
