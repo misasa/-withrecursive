@@ -14,9 +14,15 @@ that refers to this package.
 
 # Installation
 
-Install the package by yourself as:
+Add this line to your application's Gemfile:
 
-    $ gem install with_recursive
+    gem 'with_recursive'
+
+And then execute:
+
+    $ bundle
+
+
 
 # Usage
 
