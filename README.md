@@ -48,11 +48,3 @@ Additional methods
     siblings: get same depth records.
     self_and_siblings: get self and same depth records.
     families: get self and ancestors and descendants records.
-
-# Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
