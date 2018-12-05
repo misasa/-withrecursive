@@ -8,9 +8,7 @@ This extension helps to create hierarchical queries for
 self-referential models and allows to traverse ancestors or
 descendants, recursively.
 
-See
-[medusa](https://github.com/misasa/medusa "follow instruction")
-that refers to this package.
+See [rails project -- medusa](https://github.com/misasa/medusa) that refers to this package.
 
 # Installation
 
