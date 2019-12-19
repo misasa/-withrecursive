@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe WithRecursive::ActiveRecordExtension::Associations do
 
-  before { Tree.send(:with_recursive, order: :code) }
+  before { Tree.send(:with_recursive, order: nil) }
   let(:tree) { Tree.create(parent_id: parent_id, code: code) }
   let(:parent_id) { nil }
   let(:code) { nil }
@@ -48,7 +48,18 @@ describe WithRecursive::ActiveRecordExtension::Associations do
       it { expect(ancestors).to be_include parent }
     end
 
-    describe ".descendants" do
+    describe ".ancestor_ids_by_id" do
+      let(:ancestor_ids) { Tree.ancestor_ids_by_id(tree.id) }
+      let(:root) { Tree.create }
+      let(:parent) { Tree.create(parent_id: root.id) }
+      let(:parent_id) { parent.id }
+      before { Tree.create(parent_id: tree.id) }
+      it { expect(ancestor_ids.length).to eq 2 }
+      it { expect(ancestor_ids).to be_include root.id }
+      it { expect(ancestor_ids).to be_include parent.id }
+    end
+
+    describe ".descendants_by_id" do
       let(:descendants) { Tree.descendants_by_id(tree.id) }
       let(:parent) { Tree.create }
       let(:parent_id) { parent.id }
@@ -59,6 +70,19 @@ describe WithRecursive::ActiveRecordExtension::Associations do
       it { expect(descendants.length).to eq 2 }
       it { expect(descendants).to be_include @child }
       it { expect(descendants).to be_include @descendant }
+    end
+
+    describe ".descendant_ids_by_id" do
+      let(:descendant_ids) { Tree.descendant_ids_by_id(tree.id) }
+      let(:parent) { Tree.create }
+      let(:parent_id) { parent.id }
+      before do
+        @child = Tree.create(parent_id: tree.id)
+        @descendant = Tree.create(parent_id: @child.id)
+      end
+      it { expect(descendant_ids.length).to eq 2 }
+      it { expect(descendant_ids).to be_include @child.id }
+      it { expect(descendant_ids).to be_include @descendant.id }
     end
 
     describe ".root_by_id" do
@@ -83,6 +107,17 @@ describe WithRecursive::ActiveRecordExtension::Associations do
       it { expect(ancestors[1]).to eq parent }
     end
 
+    describe ".ancestor_ids" do
+      let(:ancestor_ids) { tree.ancestor_ids }
+      let(:root) { Tree.create }
+      let(:parent) { Tree.create(parent_id: root.id) }
+      let(:parent_id) { parent.id }
+      before { Tree.create(parent_id: tree.id) }
+      it { expect(ancestor_ids.length).to eq 2 }
+      it { expect(ancestor_ids[0]).to eq root.id }
+      it { expect(ancestor_ids[1]).to eq parent.id }
+    end
+
     describe ".descendants" do
       let(:descendants) { tree.descendants }
       let(:parent) { Tree.create }
@@ -94,6 +129,19 @@ describe WithRecursive::ActiveRecordExtension::Associations do
       it { expect(descendants.length).to eq 2 }
       it { expect(descendants[0]).to eq @child }
       it { expect(descendants[1]).to eq @descendant }
+    end
+
+    describe ".descendant_ids" do
+      let(:descendant_ids) { tree.descendant_ids }
+      let(:parent) { Tree.create }
+      let(:parent_id) { parent.id }
+      before do
+        @child = Tree.create(parent_id: tree.id)
+        @descendant = Tree.create(parent_id: @child.id)
+      end
+      it { expect(descendant_ids.length).to eq 2 }
+      it { expect(descendant_ids[0]).to eq @child.id }
+      it { expect(descendant_ids[1]).to eq @descendant.id }
     end
 
     describe ".root_by_id" do
@@ -144,6 +192,19 @@ describe WithRecursive::ActiveRecordExtension::Associations do
       it { expect(families[1]).to eq tree }
       it { expect(families[2]).to eq @child }
     end
+
+    describe ".family_ids" do
+      let(:family_ids) { tree.family_ids }
+      let(:parent) { Tree.create(parent_id: nil) }
+      let(:parent_id) { parent.id }
+      before { @child = Tree.create(parent_id: tree.id) }
+      it { expect(family_ids.length).to eq 3 }
+      it { expect(family_ids[0]).to eq parent.id }
+      #it { expect(family_ids[0].depth).to eq 1 }
+      it { expect(family_ids[1]).to eq tree.id }
+      it { expect(family_ids[2]).to eq @child.id }
+    end
+
   end
 
 end
