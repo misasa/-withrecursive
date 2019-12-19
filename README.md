@@ -41,8 +41,11 @@ Additional methods
     parent: get parent record.
     children: get children records.
     ancestors: get ancestors records.
+    ancestor_ids: get ancestors ids.
     descendants: get descendants records.
+    descendant_ids: get descendants ids.
     root: get root record.
     siblings: get same depth records.
     self_and_siblings: get self and same depth records.
     families: get self and ancestors and descendants records.
+    family_ids: get self and ancestors and descendants ids.

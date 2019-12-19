@@ -10,7 +10,7 @@ require "with_recursive"
 Dir.glob(File.expand_path("../support/**/*.rb", __FILE__)) { |f| require f }
 
 database = "with_recursive_test"
-ActiveRecord::Base.establish_connection(adapter: "postgresql", user: "postgres", pasword: "postgres")
+ActiveRecord::Base.establish_connection(adapter: "postgresql", host: "postgres", user: "postgres", pasword: "postgres")
 
 RSpec.configure do |config|
   migrations = ActiveRecord::Migration.descendants
