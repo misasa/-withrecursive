@@ -53,7 +53,7 @@ module WithRecursive
         end
 
         def recursive_alias_ids_definition
-          Arel::Nodes::SqlLiteral.new("#{recursive_alias.name}(#{(["id", with_recursive_config.foreign_key] + ["depth"]).join(",")})")
+          Arel::Nodes::SqlLiteral.new("#{recursive_alias.name}(#{(column_names + ["depth"]).join(",")})")
         end
 
         def ancestors_for_recursive(id)
@@ -77,7 +77,7 @@ module WithRecursive
         end
 
         def sub_query_ids_for_recursive(id, on_clause)
-          select(["id", with_recursive_config.foreign_key] + [:"1"]).where(id: id).union(:all, sub_query_ids_for_union(on_clause))
+          select(column_names + [:"1"]).where(id: id).union(:all, sub_query_ids_for_union(on_clause))
         end        
 
         def sub_query_for_union(on_clause)
@@ -85,7 +85,7 @@ module WithRecursive
         end
 
         def sub_query_ids_for_union(on_clause)
-          select(["id", with_recursive_config.foreign_key].map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).build_arel.join(recursive_alias).on(on_clause)
+          select(column_names.map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).build_arel.join(recursive_alias).on(on_clause)
         end
 
         def with_recursive_query(sub_query, where_clause, depth_order_direction)
