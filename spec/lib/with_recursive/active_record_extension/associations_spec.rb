@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe WithRecursive::ActiveRecordExtension::Associations do
 
-  before { Tree.send(:with_recursive, order: nil) }
+  before { Tree.send(:with_recursive, order: :code) }
   let(:tree) { Tree.create(parent_id: parent_id, code: code) }
   let(:parent_id) { nil }
   let(:code) { nil }
