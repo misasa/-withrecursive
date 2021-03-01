@@ -73,19 +73,19 @@ module WithRecursive
         end
 
         def sub_query_for_recursive(id, on_clause)
-          select(column_names + [:"1"]).where(id: id).union(:all, sub_query_for_union(on_clause))
+          select(column_names + [Arel::Nodes::SqlLiteral.new("1")]).where(id: id).arel.union(:all, sub_query_for_union(on_clause))
         end
 
         def sub_query_ids_for_recursive(id, on_clause)
-          select(column_names + [:"1"]).where(id: id).union(:all, sub_query_ids_for_union(on_clause))
-        end        
+          select(column_names + [Arel::Nodes::SqlLiteral.new("1")]).where(id: id).arel.union(:all, sub_query_ids_for_union(on_clause))
+        end
 
         def sub_query_for_union(on_clause)
-          select(column_names.map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).build_arel.join(recursive_alias).on(on_clause)
+          select(column_names.map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).arel.join(recursive_alias).on(on_clause)
         end
 
         def sub_query_ids_for_union(on_clause)
-          select(column_names.map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).build_arel.join(recursive_alias).on(on_clause)
+          select(column_names.map { |c| arel_table[c] } + [recursive_alias[:depth] + 1]).arel.join(recursive_alias).on(on_clause)
         end
 
         def with_recursive_query(sub_query, where_clause, depth_order_direction)
@@ -93,7 +93,7 @@ module WithRecursive
           query = query.where(where_clause) if where_clause
           query = query.order("depth #{depth_order_direction}")
           query = query.order(with_recursive_config.order) if with_recursive_config.order
-          query.with(:recursive, Arel::Nodes::As.new(recursive_alias_definition, sub_query))
+          query.with(:recursive, Arel::Nodes::TableAlias.new(sub_query, recursive_alias_definition))
         end
 
         def with_recursive_query_ids(sub_query, where_clause, depth_order_direction)
@@ -101,7 +101,7 @@ module WithRecursive
           query = query.where(where_clause) if where_clause
           query = query.order("depth #{depth_order_direction}")
           query = query.order(with_recursive_config.order) if with_recursive_config.order
-          query.with(:recursive, Arel::Nodes::As.new(recursive_alias_ids_definition, sub_query))
+          query.with(:recursive, Arel::Nodes::TableAlias.new(sub_query, recursive_alias_definition))
         end
 
         def find_with_recursive(query, where_clause, depth_order_direction)
